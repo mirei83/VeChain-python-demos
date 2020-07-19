@@ -11,7 +11,7 @@ import requests
 # See: https://docs.vechain.org/thor/learn/transaction-model.html#model
 body = {
     "chainTag": 39, # chainTag 39 = testnet,  see: https://docs.vechain.org/others/#network-identifier for more details
-    "blockRef": '0x00634b0ee5b42b4e', # to get latest blockRef, do "curl -s https://testnet.veblocks.net/blocks/best | jq -r .id | cut -c-18"
+    "blockRef": '0x00634b0ee5b42b4e', # to get latest blockRef
     "expiration": 720, # blockref + expiration = blocknumber where TX expires
     "clauses": [  # here the cause section starts, in later demos, there will be a lot of clauses. In this demo there is only one simple clause: a transfere of vet.
         {
@@ -20,7 +20,7 @@ body = {
             "data": '0x' # data is irrelevant in a vet transactions, but needs to be defined
         }
     ],
-    "gasPriceCoef": 0, # gasPriceCoef can be between 0 and 255 to increase the urgancy of your transactions
+    "gasPriceCoef": 0, # gasPriceCoef can be between 0 and 255 to increase the urgency of your transactions
     "gas": 21000, # maximum gas a tx can consume
     "dependsOn": None, # you can stage transactions, irrelevant for now
     "nonce": 12345679 # nonce for proof-of-work and uniquesness of the transaction
