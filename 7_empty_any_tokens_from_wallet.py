@@ -38,10 +38,17 @@ for token, balance in zip(tokens, balances):
     transfer_clauses.append(c)
 
 # Do the transaction
-res = CONNECTOR.transact_multi(
-  SRC_WALLET,
-  transfer_clauses,
-  gas_payer=SPONSOR # <- pay attention to this line
-)
+if len(transfer_clauses) > 0:
+  res = CONNECTOR.transact_multi(
+    SRC_WALLET,
+    transfer_clauses,
+    gas_payer=SPONSOR
+  )
 
 print('transfer out all tokens with transaction', res)
+
+# Use vip-191 fee delegation to transfer all VET out
+vet_balance_in_wei = CONNECTOR.get_vet_balance(SRC_WALLET.getAddress())
+print('vet:', vet_balance_in_wei)
+res = CONNECTOR.transfer_vet(SRC_WALLET, DST_ADDRESS, vet_balance_in_wei, SPONSOR)
+print('transfer out all VET with transaction', res)
